@@ -1,0 +1,201 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Rooms",
+        "formDescription": "What type of room do you want ?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Full Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Room Type",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Deluxe room"
+                  },
+                  {
+                    "option": "Standard room"
+                  },
+                  {
+                    "option": "Studio"
+                  },
+                  {
+                    "option": "Double room"
+                  },
+                  {
+                    "option": "Suite"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -384,
+        -144
+      ],
+      "id": "bede0013-5627-4b1c-8981-dd566fe85b59",
+      "name": "On form submission",
+      "webhookId": "cca358be-6e7f-4398-af7e-494563333e5f"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app3NXBkLINjZKqC5",
+          "mode": "list",
+          "cachedResultName": "Test_Airtable",
+          "cachedResultUrl": "https://airtable.com/app3NXBkLINjZKqC5"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblflEohQxIw5Y6qY",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/app3NXBkLINjZKqC5/tblflEohQxIw5Y6qY"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Room": "={{ $json['Room Type'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Room",
+              "displayName": "Room",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        -144
+      ],
+      "id": "dfcbaf4b-ffe0-42a9-884c-35503900d980",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "QYuhrdTdI982zO32",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "C:\\Users\\ayouhad\\OneDrive - Capgemini\\Documents\\n8n_test\\n8n_rooms.txt",
+        "dataPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        224,
+        -144
+      ],
+      "id": "954b99d5-c208-41c0-9890-4caf51416991",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "fields.Name",
+        "binaryPropertyName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        16,
+        -144
+      ],
+      "id": "374c3d77-436a-4eca-992e-d6c95528e52b",
+      "name": "Convert to File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e1993325-3d8d-4679-ae77-593e4b3628f4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016318c93109ab72d19c978ab0ef4ff25fae486fd3ea2f2b2212f707ef917fac"
+  },
+  "id": "QH5uh1Pi2pK40XGE",
+  "tags": []
+}
