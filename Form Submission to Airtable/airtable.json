@@ -42,10 +42,7 @@
       },
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.3,
-      "position": [
-        -384,
-        -144
-      ],
+      "position": [-384, -144],
       "id": "bede0013-5627-4b1c-8981-dd566fe85b59",
       "name": "On form submission",
       "webhookId": "cca358be-6e7f-4398-af7e-494563333e5f"
@@ -105,10 +102,7 @@
       },
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
-      "position": [
-        -176,
-        -144
-      ],
+      "position": [-176, -144],
       "id": "dfcbaf4b-ffe0-42a9-884c-35503900d980",
       "name": "Create a record",
       "credentials": {
@@ -127,10 +121,7 @@
       },
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
-      "position": [
-        224,
-        -144
-      ],
+      "position": [224, -144],
       "id": "954b99d5-c208-41c0-9890-4caf51416991",
       "name": "Read/Write Files from Disk"
     },
@@ -143,10 +134,7 @@
       },
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
-      "position": [
-        16,
-        -144
-      ],
+      "position": [16, -144],
       "id": "374c3d77-436a-4eca-992e-d6c95528e52b",
       "name": "Convert to File"
     }

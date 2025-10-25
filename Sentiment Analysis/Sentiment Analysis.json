@@ -1,0 +1,237 @@
+{
+  "name": "Sentiment Analysis",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Feedback }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an expert in sentiment analysis. \nYou conduct evaluations and determine which of the three options applies:  \nPositive \nNegative \nNeutral  \nYou respond with only one word."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -272,
+        -16
+      ],
+      "id": "7ad30a7b-21d7-4c81-a1f2-cfcc8ba877bb",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -432,
+        144
+      ],
+      "id": "c8c5115e-3435-4116-97ce-1cc348204721",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "SLtamhvnKRwheyoZ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Feedback",
+        "formDescription": "We Value Your Feedback",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name",
+              "placeholder": "Place  Your Full Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Feedback",
+              "fieldType": "textarea",
+              "placeholder": "Place Your Feedback",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -592,
+        -144
+      ],
+      "id": "5be92c4b-ed39-44c4-9e48-76c37d024e86",
+      "name": "On form submission",
+      "webhookId": "96a4f3c0-4647-4bae-b4b7-fdcfc37ad62b"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        80,
+        -128
+      ],
+      "id": "15f15b40-afc9-4e7a-8878-737e9a3af4ea",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1w0hhr8OGs56VwbyG2uJLf_Bip07cf-80xAskELdjSbQ",
+          "mode": "list",
+          "cachedResultName": "Sentiment Analysis",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1w0hhr8OGs56VwbyG2uJLf_Bip07cf-80xAskELdjSbQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Feuille 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1w0hhr8OGs56VwbyG2uJLf_Bip07cf-80xAskELdjSbQ/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json['Full Name'] }}",
+            "Text Review": "={{ $json.Feedback }}",
+            "Review": "={{ $json.text }}"
+          },
+          "matchingColumns": [
+            "Full Name"
+          ],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Text Review",
+              "displayName": "Text Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        -128
+      ],
+      "id": "7d7d88dd-5647-42c5-941c-201f5c809892",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Eru2t5jr3oMEgS45",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "29431745-3fd5-4fef-928d-bd20c0152019",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016318c93109ab72d19c978ab0ef4ff25fae486fd3ea2f2b2212f707ef917fac"
+  },
+  "id": "J3WRtzmqIV3HBZNl",
+  "tags": []
+}
