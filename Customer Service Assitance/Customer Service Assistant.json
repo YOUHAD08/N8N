@@ -1,0 +1,138 @@
+{
+  "name": "Customer Service Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "authentication": "airtableTokenApi",
+        "baseId": {
+          "__rl": true,
+          "value": "https://airtable.com/app3NXBkLINjZKqC5/tblxPzeCZiLb47qbe/viwjip3p455y26Rbs?blocks=hide",
+          "mode": "url"
+        },
+        "tableId": {
+          "__rl": true,
+          "value": "https://airtable.com/app3NXBkLINjZKqC5/tblxPzeCZiLb47qbe/viwjip3p455y26Rbs?blocks=hide",
+          "mode": "url"
+        },
+        "triggerField": "Order Number",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.airtableTrigger",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -80
+      ],
+      "id": "ae860a20-9ea6-49d6-b2fb-78a76e60ea84",
+      "name": "Airtable Trigger",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "QYuhrdTdI982zO32",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a Customer Service Assistant.Your task is to generate a professional email to the team summarizing new customer orders.  Use the provided data fields and ensure proper indentation and formatting for a clean, professional look. The email should be signed with \"Customer Success Team\".\n\nOrder details:\n- Order Number: {{ $json.fields.Order_Number }}\n- Customer: {{ $json.fields.Customer }}\n- Product: {{ $json.fields.Product }}\n- Quantity: {{ $json.fields.Quantity }}\n- Price: {{ $json.fields.Price }}\n- Date: {{ $json.fields.Date }}\n- Status: {{ $json.fields.Status }}\n\nEmail subject format : New Order Notification - {{ $json.fields.Order_Number }}\n\n\nEmail Content format :\n\n\"\"\"\nHello Team,\n\n    A new order has been received. Here are the details:\n\n        • Order Number:{{ $json.fields.Order_Number }}\n        • Customer: {{ $json.fields.Customer }}\n        • Product: {{ $json.fields.Product }}\n        • Quantity: {{ $json.fields.Quantity }}\n        • Price per Unit: {{ $json.fields.Price }}\n        • Order Date: {{ $json.fields.Date }}\n        • Status: {{ $json.fields.Status }}\n\n    Please ensure this order is processed and tracked accordingly.\n\nThank you,\nCustomer Success Team\n\n\"\"\"\n\nOutput parameters:\n\n1. Email subject\n2. Email content\n\n"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -64,
+        -80
+      ],
+      "id": "ec0c440d-68a4-410f-8186-e745cb7687b1",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "SLtamhvnKRwheyoZ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "yo_ayoub@etu.enset-media.ac.ma",
+        "subject": "={{ $json.message.content['Email subject'] }}",
+        "emailType": "text",
+        "message": "={{ $json.message.content['Email content'] }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        -80
+      ],
+      "id": "8ab75710-87af-4c4d-a032-61c8d04b0fd1",
+      "name": "Send a message",
+      "webhookId": "7454a7d1-ea60-40f9-bf3b-79d0a98c7ee7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "X3K4Iq62Hohr7FTB",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Airtable Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3b071e12-1ede-44ab-9fb2-52649f9aa761",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "016318c93109ab72d19c978ab0ef4ff25fae486fd3ea2f2b2212f707ef917fac"
+  },
+  "id": "UCyvYHYiofqrKySZ",
+  "tags": []
+}
