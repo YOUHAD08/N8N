@@ -1,0 +1,140 @@
+{
+  "name": "Email Sender Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        224,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        416
+      ],
+      "id": "ddb0f625-d435-4c17-a6ae-c1e665b23568",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "h186umHZYZgjg54D",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        592,
+        416
+      ],
+      "id": "3056d970-d0b2-48d6-972d-b092f0b079bd",
+      "name": "Send a message in Gmail",
+      "webhookId": "d1cb399d-0dbd-4779-8a63-ba236405124f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "xLkj82mA6AwSOO7g",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a helpful assistant responsible for sending emails.\n\nYour task:\n- Always send emails in HTML format (not plain text).\n- Preserve the structure, indentation, and line breaks of the email body.\n- Use <p>, <br>, and <strong> tags to make formatting visible.\n- Never escape or double-encode HTML tags.\n\nWhen you receive the email content (subject, body, recipient):\n1. Wrap the email body inside an HTML template like this:\n\n<html>\n  <body style=\"font-family: Arial, sans-serif; line-height: 1.6;\">\n    [Email Body]\n  </body>\n</html>\n\n2. Convert any newlines (\\n) into <br> tags if they exist.\n3. Keep indentation and paragraphs exactly as given.\n\nExample of correctly formatted HTML email:\n<html>\n  <body style=\"font-family: Arial, sans-serif; line-height: 1.6;\">\n    <p>Hello [Name],</p>\n    <p>I hope you are doing well.<br>\n    I wanted to inform you about [Topic].</p>\n    <p>Best regards,<br>Arnie</p>\n  </body>\n</html>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        208
+      ],
+      "id": "8f8f53e6-1a60-4062-8bdc-61fa1be9a36f",
+      "name": "Email Sender Agent"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "query": "To: ayoubyouhad79@gmail.com\n\nSubject: Thank You for Your Excellent Service\n\nHello Ayoub,\n\nI hope this message finds you well. I wanted to extend my heartfelt thanks for your outstanding service. Your dedication and efforts have not gone unnoticed, and they are greatly appreciated.\n\nThank you once again for your exceptional service.\n\nBest regards,\nArnie"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Email Sender Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Sender Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "Email Sender Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1d651e97-4d2b-4985-9f9a-afc5c7f1fe67",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4c9dba367dc093830beff5218902599c6f2475df63892127b46cbd0644ab12b6"
+  },
+  "id": "OQuw4V9hIYtVwwL7",
+  "tags": []
+}

@@ -1,0 +1,264 @@
+{
+  "name": "Email Agent Pincone",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        -112
+      ],
+      "id": "6bfc2b69-90ac-4884-89f0-18fbb84bb50b",
+      "name": "When chat message received",
+      "webhookId": "3272b50e-ced4-4346-bdb0-62d9b65577b3"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Role:  \nYou are an intelligent email agent that automatically sends personalized emails to recipients. Your task is to generate and send a clear, professional, and accurate email based on the provided names, email addresses, and desired content.  \n\n## Rules & Behavior:  \n\n# You have 2 Tools and need to use them correctly, you always use both tools, first the Vectorstore_mails after that the send_mail\n\n## Vectorstore_mails \nUse this tool to get Email adresses, you can get all mail adresses from pinecone.\narnie test = arnoldoberleiterhofer@gmail.com\n\n## send_mail\nUse this tool to send mails.\n\n### Email Format:  \n- The email must include a **subject line**.  \n- It should begin with an appropriate **salutation** (e.g., \"Hello [Name]\" or \"Dear [Name]\").  \n- The **main content** should be clear, concise, and friendly.  \n- The email should end with a **suitable closing phrase** (e.g., \"Best regards, Arnie\").  \n\n### Dynamic Personalization:  \n- Automatically replace the placeholder **[Name]** with the recipient’s actual name.  \n- If the name is missing, use a general salutation such as **\"Hello, dear team\"**.  \n\n### Review & Optimization:   \n- Avoid unnecessary **repetitions or vague wording**.  \n- If the message is **too long or unstructured, summarize it clearly**.  \n\n## Email Types (Adaptable Based on Context):  \n- Standard information email  \n- Reminder or follow-up  \n- Offer or marketing email  \n- Support or customer service request  \n\n---\n\n### Example of a Generated Email:  \n\n\n**Subject:** Important Information for You, [Name]  \n\n**Text:**  \n\n  Hello [Name],  \n  \n  I hope you are doing well. I wanted to quickly inform you about [Topic]. If you have any questions or need further information, feel free to reach out.  \n  \n  Best regards,  \n  Arnie\n\n\n\n### Output Format\n''' json\n {\n  \"Email Address\": \"[Email Address]\",\n  \"Email Subject\": \"[Email Subject]\",\n  \"Email Body\": \"[Email Body]\"\n}\n'''"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        -112
+      ],
+      "id": "28306325-b40f-4ef4-b74b-e7e09ed93124",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        96
+      ],
+      "id": "a96a3079-4d42-4efd-8fc8-dc84faed1047",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "h186umHZYZgjg54D",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        288
+      ],
+      "id": "3a2a68cd-c1bb-4402-91a6-e24b73563d9c",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "h186umHZYZgjg54D",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-emails",
+          "mode": "list",
+          "cachedResultName": "n8n-emails"
+        },
+        "options": {
+          "pineconeNamespace": "n8n_email"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        240
+      ],
+      "id": "1597e5fe-742e-44bd-8d9f-3169376e98da",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "fO4TrkEnDIkb3hgW",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        384
+      ],
+      "id": "b938c153-b566-4498-b6f9-975655c1a8b2",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "h186umHZYZgjg54D",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Use this Tool to get Email Information, you find all relevant mail adresses, you also give mail adresses."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        96
+      ],
+      "id": "05945696-615d-4949-826c-b2c3d33183b1",
+      "name": "Vectorstore Mails"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool to send mails.",
+        "workflowId": {
+          "__rl": true,
+          "value": "OQuw4V9hIYtVwwL7",
+          "mode": "list",
+          "cachedResultName": "Email Sender Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        576,
+        80
+      ],
+      "id": "4f3207bf-df24-486f-93c9-91caae4434eb",
+      "name": "Send Email"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vectorstore Mails",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vectorstore Mails",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectorstore Mails": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Send Email": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dbb48503-f3ab-4cdc-a460-98670326735e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4c9dba367dc093830beff5218902599c6f2475df63892127b46cbd0644ab12b6"
+  },
+  "id": "LPJEW67oG6aOiaTq",
+  "tags": []
+}
