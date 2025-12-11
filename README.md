@@ -76,7 +76,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - Switch nodes for message type routing
 - Audio transcription & generation
 - AI Agent with multiple tools
-  ![WhatsApp Agent](.\WhatsApp%20Agent\WhatsApp%20Agent.png)
+  ![WhatsApp Agent](./WhatsApp%20Agent/WhatsApp%20Agent.png)
 - Sub-workflows:
   - Email Agent
     ![WhatsApp Agent](.\WhatsApp%20Agent\Email%20Agent.png)
