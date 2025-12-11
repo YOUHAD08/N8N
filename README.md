@@ -76,12 +76,12 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - Switch nodes for message type routing
 - Audio transcription & generation
 - AI Agent with multiple tools
-  ![WhatsApp Agent](/Lecture/WhatsApp%20Agent/WhatsApp%20Agent.png)
+  ![WhatsApp Agent](\Lecture\WhatsApp%20Agent\WhatsApp%20Agent.png)
 - Sub-workflows:
   - Email Agent
-    ![WhatsApp Agent](/Lecture/WhatsApp%20Agent/Email%20Agent.png)
+    ![WhatsApp Agent](\Lecture\WhatsApp%20Agent\Email%20Agent.png)
   - Calendar Agent
-    ![WhatsApp Agent](/Lecture/WhatsApp%20Agent/Calender%20Agent.png)
+    ![WhatsApp Agent](\Lecture\WhatsApp%20Agent\Calender%20Agent.png)
 - Memory management (20 message window)
 
 **Use Cases:**
@@ -113,7 +113,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - Text splitting with recursive character splitter
 - OpenAI embeddings
 - Pinecone vector store
-  ![Vector Database](/Lecture/Vector%20Database/Vector%20Database.jpg)
+  ![Vector Database](\Lecture\Vector%20Database\Vector%20Database.jpg)
 
 **Use Cases:**
 
@@ -131,7 +131,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 **Key Features:**
 
 - 📝 Custom web form for feedback collection
-- 🤖 AI sentiment classification (Positive/Negative/Neutral)
+- 🤖 AI sentiment classification (Positive\Negative\Neutral)
 - 📊 Automatic Google Sheets logging
 - 🔄 Real-time analysis
 - 📈 Structured data output
@@ -142,7 +142,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - OpenAI GPT-4.1-mini for sentiment analysis
 - Data merging
 - Google Sheets integration
-  ![Sentiment Analysis](/Lecture/Sentiment%20Analysis/Sentiment%20Analysis.jpg)
+  ![Sentiment Analysis](\Lecture\Sentiment%20Analysis\Sentiment%20Analysis.jpg)
 
 **Use Cases:**
 
@@ -174,7 +174,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - OpenAI for email generation
 - Gmail send integration
 
-  ![Respond to Sponsorship](/Lecture/Respond%20to%20Sponsership/Respond%20to%20Sponsership.png)
+  ![Respond to Sponsorship](\Lecture\Respond%20to%20Sponsership\Respond%20to%20Sponsership.png)
 
 **Channel Details:**
 
@@ -214,7 +214,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - OpenAI embeddings and GPT-4
 - Memory management
 
-  ![RAG Chatbot](/Lecture/RAG%20Chatbot/RAG%20Chatbot.png)
+  ![RAG Chatbot](\Lecture\RAG%20Chatbot\RAG%20Chatbot.png)
 
 **Use Cases:**
 
@@ -239,7 +239,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 
 - Manual Trigger
 - Google Sheets create operation
-  ![Google Sheets](/Lecture/Google%20Sheets/google%20sheets.jpg)
+  ![Google Sheets](\Lecture\Google%20Sheets\google%20sheets.jpg)
 
 **Use Cases:**
 
@@ -261,7 +261,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - 💾 Local file backup (text format)
 - 🔄 Multi-step data processing
 - 📝 Form validation
-- ![Form Submission to Airtable](/Lecture/Form%20Submission%20to%20Airtable/Form%20Submission.jpg)
+- ![Form Submission to Airtable](\Lecture\Form%20Submission%20to%20Airtable\Form%20Submission.jpg)
 
 **Components:**
 
@@ -269,7 +269,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - Airtable record creation
 - File conversion
 - Local disk write
-  ![Form Submission to Airtable](/Lecture/Form%20Submission%20to%20Airtable/Form%20Submission%20Workflow.jpg)
+  ![Form Submission to Airtable](\Lecture\Form%20Submission%20to%20Airtable\Form%20Submission%20Workflow.jpg)
 
 **Use Cases:**
 
@@ -298,7 +298,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - OpenAI for email generation
 - Gmail send integration
 
-  ![Customer Service Assistant](/Lecture/Customer%20Service%20Assitance/Customer%20Service%20Assitance.jpg)
+  ![Customer Service Assistant](\Lecture\Customer%20Service%20Assitance\Customer%20Service%20Assitance.jpg)
 
 **Order Information Included:**
 
@@ -330,7 +330,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - 🧮 Embedding generation
 - 💾 Pinecone storage for email addresses
 
-  ![Emails to Pinecone](/Lecture/AI-powered%20email%20automation%20system/Emails%20to%20Pincone.png)
+  ![Emails to Pinecone](\Lecture\AI-powered%20email%20automation%20system\Emails%20to%20Pincone.png)
 
 #### 9.2 Email Sender Agent
 
@@ -341,7 +341,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - 📧 Gmail integration
 - 🤖 AI-powered composition
 
-  ![Email Sender Agent](/Lecture/AI-powered%20email%20automation%20system/Email%20Sender%20Agent.png)
+  ![Email Sender Agent](\Lecture\AI-powered%20email%20automation%20system\Email%20Sender%20Agent.png)
 
 #### 9.3 Email Agent Pinecone
 
@@ -361,7 +361,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 - OpenAI GPT-4
 - Pinecone integration
 
-  ![Email Agent Pinecone](/Lecture/AI-powered%20email%20automation%20system/Email%20Agent%20Pincone.png)
+  ![Email Agent Pinecone](\Lecture\AI-powered%20email%20automation%20system\Email%20Agent%20Pincone.png)
 
 **Use Cases:**
 
@@ -389,7 +389,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 ### Integrations
 
 - **WhatsApp Business API** - Messaging platform
-- **Gmail / Google Workspace** - Email management
+- **Gmail \ Google Workspace** - Email management
 - **Google Calendar** - Calendar operations
 - **Google Drive** - Document storage
 - **Google Sheets** - Spreadsheet operations
@@ -418,7 +418,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
    ```bash
    npm install -g n8n
    # or
-   docker run -it --rm --name n8n -p 5678:5678 n8nio/n8n
+   docker run -it --rm --name n8n -p 5678:5678 n8nio\n8n
    ```
 
 2. **Required API Keys**
@@ -453,7 +453,7 @@ This repository contains 9 sophisticated n8n automation workflows that showcase:
 
    - Replace `YOUR_WEBHOOK_ID` with your webhook
    - Replace `YOUR_PHONE_NUMBER_ID`
-   - Update system prompt with your name/details
+   - Update system prompt with your name\details
    - Configure sub-workflow IDs
 
    **Vector Database:**
